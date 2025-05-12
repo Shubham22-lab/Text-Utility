@@ -2,12 +2,12 @@ import "./App.css";
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import TextForm from "./components/TextForm";
-import About from "./components/About";
 import Alert from "./components/Alert";
+import About from "./components/About";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route
+  HashRouter as Router,
+  Route,
+  Routes
 } from "react-router-dom";
 
 function App() {
@@ -40,12 +40,20 @@ function App() {
 
   return (
     <Router>
+      {/* Navbar stays visible on all routes */}
       <Navbar title="Text Utils" aboutTxt="About Text Utils" Mode={Mode} toggleMode={toggleMode} />
+      
+      {/* Show alerts at the top */}
       <Alert alert={alert} />
-      <div className="container">
+      
+      {/* Routes define which main content to show */}
+      <div className="container my-3">
         <Routes>
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/" element={<TextForm showAlert={showAlert} Mode = {Mode} heading="Enter the text to analyse" />} />
+          <Route
+            path="/"
+            element={<TextForm showAlert={showAlert} Mode={Mode} heading="Enter the text to analyse" />}
+          />
+          <Route path="/about" element={<About Mode={Mode} />} />
         </Routes>
       </div>
     </Router>
@@ -53,4 +61,3 @@ function App() {
 }
 
 export default App;
-
